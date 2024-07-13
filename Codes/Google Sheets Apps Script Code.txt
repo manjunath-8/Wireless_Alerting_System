@@ -1,0 +1,60 @@
+function doGet(e) { 
+  Logger.log(JSON.stringify(e));
+  var result = 'Ok';
+  if (e.parameter == 'undefined') {
+    result = 'No Parameters';
+  }
+  else {
+    var sheet_id = '1dPn5d12xQN0GF8g-TA7pt82RFEcoRQ_Ccl1SSTJJRKw'; 	// Spreadsheet ID.
+    var sheet_name = "Report";  // Sheet Name in Google Sheets.
+
+    var sheet_open = SpreadsheetApp.openById(sheet_id);
+    var sheet_target = sheet_open.getSheetByName(sheet_name);
+
+    var newRow = sheet_target.getLastRow() + 1;
+
+    var rowDataLog = [];
+
+    var Curr_Date = Utilities.formatDate(new Date(), "Asia/Kolkata", 'dd/MM/yyyy');
+    rowDataLog[2] = Curr_Date;  
+
+    var Curr_Time = Utilities.formatDate(new Date(), "Asia/Kolkata", 'HH:mm:ss');
+    rowDataLog[1] = Curr_Time;  
+
+    var sts_val = '';
+
+    for (var param in e.parameter) {
+      Logger.log('In for loop, param=' + param);
+      var value = stripQuotes(e.parameter[param]);
+      Logger.log(param + ':' + e.parameter[param]);
+      switch (param) {
+        case 'sts':
+          sts_val = value;
+          break;
+
+        case 'srs':
+          rowDataLog[0] = value;  
+          result += ', Sensor Reading Status Written on column C';
+          break;
+
+
+        default:
+          result += ", unsupported parameter";
+      }
+    }
+    
+    // Conditions for writing data received from ESP32 to Google Sheets.
+    if (sts_val == 'write') {
+      Logger.log(JSON.stringify(rowDataLog));
+      var newRangeDataLog = sheet_target.getRange(newRow, 1, 1, rowDataLog.length);
+      newRangeDataLog.setValues([rowDataLog]);
+
+      return ContentService.createTextOutput(result);
+    }
+    
+  }
+}
+function stripQuotes( value ) {
+  return value.replace(/^["']|['"]$/g, "");
+}
+
