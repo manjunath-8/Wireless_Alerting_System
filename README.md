@@ -79,3 +79,6 @@ STL files for 3D printing the custom-designed case for the electronics.
    - Use debugging tools in Arduino IoT Cloud and Google Sheets to troubleshoot any issues.
 
 By following these steps, you can successfully integrate your Arduino IoT Cloud setup with Google Sheets, allowing for real-time logging and dashboarding of machine error data.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
