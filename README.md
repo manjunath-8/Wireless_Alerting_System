@@ -11,12 +11,17 @@ In this subdirectory, you will find the code to be uploaded to the ESP32 microco
 - **Google_Sheets_App_Script**
 This subdirectory contains the Google Sheets App Script code, which is used to track efficiency and log machine errors in a Google Sheet.
 
-- **3D Models**: STL files for 3D printing the custom-designed case for the electronics.
-- **PCB Design Files**: Schematic and layout files for the custom PCB design, including BOM (Bill of Materials) and Gerber files for manufacturing.
+### PCB Design Files
+Schematic and layout files for the custom PCB design, including BOM (Bill of Materials) and Gerber files for manufacturing.
+  
+### Fusion360
+STL files for 3D printing the custom-designed case for the electronics.
 
-# Setting Up Arduino IoT Cloud
+**Note:** Refer PPT, Report, Poster for other details. 
 
-## 1. Adding Devices and Programming with Arduino IoT Cloud
+## Setting Up Arduino IoT Cloud
+
+### 1. Adding Devices and Programming with Arduino IoT Cloud
 
 1. **Create an Account and Setup**
    - Sign up for an Arduino IoT Cloud account if you haven't already.
@@ -35,16 +40,16 @@ This subdirectory contains the Google Sheets App Script code, which is used to t
    - Arrange widgets to display machine error data effectively.
 
 5. **Programming the ESP32**
-   - Write your Arduino sketch (`machine_error_monitor.ino`) to read sensor data (e.g., machine error data) and update variables.
+   - Write your Arduino sketch (`Arduino_IoT_Cloud_Sketch`) to read sensor data (e.g., machine error data) and update variables.
    - Use the Arduino IDE or Arduino IoT Cloud's online editor to upload your sketch to the ESP32.
 
 6. **Testing**
    - Ensure your ESP32 is connected to Wi-Fi and transmitting data correctly.
    - Monitor the Arduino IoT Cloud dashboard to verify data reception.
 
-# Integrating with Google Sheets App Script
+## Integrating with Google Sheets App Script
 
-## 2. Writing and Deploying Google Sheets App Scripts
+### 2. Writing and Deploying Google Sheets App Scripts
 
 1. **Create a Google Sheet**
    - Open Google Sheets and create a new spreadsheet.
@@ -54,14 +59,11 @@ This subdirectory contains the Google Sheets App Script code, which is used to t
    - In Google Sheets, go to "Extensions" > "Apps Script" to open the script editor.
 
 3. **Write the Error Logger Script**
-   - Write a script (`ErrorLogger.gs`) to receive data from Arduino IoT Cloud.
+   - Write a script (`Google_Sheets_App_Script`) to receive data from Arduino IoT Cloud.
    - Use functions like `doPost(e)` to handle incoming data via HTTP requests.
    - Parse incoming data and append it to your Google Sheets.
-
-4. **Dashboard Updater Script**
-   - Create another script (`DashboardUpdater.gs`) to update department-wide dashboards with the latest error data and efficiency metrics.
-
-5. **Deploy the Scripts**
+   
+4. **Deploy the Scripts**
    - Save and deploy your scripts as a web app.
    - Set permissions to run the script as you (the owner) or anyone accessing the web app.
    - Obtain the deployment URL for later use in your Arduino IoT Cloud setup.
